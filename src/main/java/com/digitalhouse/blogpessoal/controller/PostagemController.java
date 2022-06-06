@@ -33,7 +33,7 @@ public class PostagemController {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	@GetMapping("/{id}") //busco por id ->indicar qual met http pra poder chamar o id
+	@GetMapping("/{id}") //busco por id -> indicar qual met http pra poder chamar o id
 	public ResponseEntity<PostagemModel> GetById(@PathVariable long id){
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
@@ -60,14 +60,6 @@ public class PostagemController {
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
 	}
-	
-	//Métodos Post -> uinserção de dados 
-	
-	
-	
-	//Método Put -> atualizaçao do sistema
-	
-	
 	
 }
 

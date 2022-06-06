@@ -34,7 +34,7 @@ public class PostagemModel {
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date = new java.sql.Date(System.currentTimeMillis());
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 
 	@ManyToOne
 	@JsonIgnoreProperties("postagem") //ignorar a recursividade -> decorrencia de varios grupos de repetição 
@@ -66,11 +66,11 @@ public class PostagemModel {
 	}
 
 	public Date getDate() {
-		return date;
+		return data;
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
+		this.data = date;
 	}
 
 	public TemaModel getTema() {

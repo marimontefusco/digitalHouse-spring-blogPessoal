@@ -1,12 +1,21 @@
 package com.digitalhouse.blogpessoal.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "tb-usuario")
@@ -16,14 +25,15 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@NotNull
 	@Size(min = 2, max = 100)
 	private String nome;
 	
-	@NotNull
-	@Size(min = 2, max = 100)
+	@Schema(example = "email@email.com")
+	@NotNull(message = "O atributo usuário é obrigatório")
+	@Email(message = "O atributo usuário deve ser um email válido")
 	private String usuario;
 	
 	@NotNull
@@ -32,18 +42,25 @@ public class Usuario {
 	
 	private String foto;
 	
+	private String tipo;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<PostagemModel> postagem;
+	
 	
 	//CONSTRUTOR VAZIO pra depois referenciá-lo
 	
 	public Usuario() {	
+		
 	}
 	
 	
-	// CONSTRUTOR pra poder fazer os Testes
+	//CONSTRUTOR pra poder fazer os Testes
 	//generate Constructor using Fields -> cria com as anotations
 	//Omit call to default constructor super()
 	
-	public Usuario(long id, String nome, String usuario, String senha, String foto) {
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
@@ -54,11 +71,11 @@ public class Usuario {
 	
 	//GETTERS & SETTERS
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -93,5 +110,30 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	public List<PostagemModel> getPostagem() {
+		return postagem;
+	}
+
+
+	public void setPostagem(List<PostagemModel> postagem) {
+		this.postagem = postagem;
+	}
+
+	public void setToken(String gerarBasicToken) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }

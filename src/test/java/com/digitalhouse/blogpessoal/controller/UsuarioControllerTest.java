@@ -97,11 +97,11 @@ public class UsuarioControllerTest {
 	@DisplayName("Alterar um usuário") 
 	public void deveAlterarUmUsuario() {
 		
-		Optional<Usuario> usuarioCreate = usuarioService.cadastrarUsuario(new Usuario(0L,"Joyce", 
+	<Usuario> usuarioCreate = usuarioService.cadastrarUsuario(new Usuario(0L,"Joyce", 
 				"joyce@gmail.com", "12345678","http://fotolegaladriana.jpg"));
 		
 		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(),
-				"Joyce Meireles", "joyce_meireles@gmail.com", "12345678","http://fotolegaladriana.jpg");
+				"Joyce Meireles", "joyce_meireles@gmail.com", "12345678","http://fotolegaljoyce.jpg");
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(usuarioUpdate);	
 		
@@ -115,6 +115,25 @@ public class UsuarioControllerTest {
 		assertEquals(usuarioUpdate.getNome(), resposta.getBody().getNome());
 		assertEquals(usuarioUpdate.getUsuario(), resposta.getBody().getUsuario());
 		assertEquals(usuarioUpdate.getFoto(), resposta.getBody().getFoto());
+	}
+	
+	@Test
+	@Order(4)
+	@DisplayName("Listar todos os usuários")
+	public void deveMostrarUsuarios() {
+		
+		usuarioService.cadastrarUsuario(new Usuario(0L,
+				"Kevim Lhouis", "kevim@gmail.com", "12345678","http://fotokevim.jpg"));
+	
+		usuarioService.cadastrarUsuario(new Usuario(1L,
+				"Vanessa Jesus", "vanessa@gmail.com", "12345678","http://fotovanessa.jpg"));
+	
+		ResponseEntity<String> resposta = testRestTemplate
+				.withBasicAuth("root","root")
+				.exchange("/usuarios/all", HttpMethod.GET, null, String.class);
+		assertEquals(HttpStatus.OK, resposta.getStatusCode());
+	
+	//met de assercao pra checar se a resposta da minha requisiçao é exatamente igual resposta que estou esperando -> expected: <200 OK>
 	}
 	
 }

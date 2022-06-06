@@ -30,39 +30,30 @@ public class TemaModel{
 	@JsonIgnoreProperties("tema")
 	private List<PostagemModel> postagem;
 		
-		
 
-//		public long getQtd() {
-//			return qtd;
-//		}
-//
-//		public void setQtd(long qtd) {
-//			this.qtd = qtd;
-//		}
+	public long getId() {
+		return id;
+	}
 
-		public long getId() {
-			return id;
-		}
+	public void setId(long id) {
+		this.id = id;
+	}
 
-		public void setId(long id) {
-			this.id = id;
-		}
+	public String getDescricao() {
+		return descricao;
+	}
 
-		public String getDescricao() {
-			return descricao;
-		}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-		public void setDescricao(String descricao) {
-			this.descricao = descricao;
-		}
+	public List<PostagemModel> getPostagem() {
+		return postagem;
+	}
 
-		public List<PostagemModel> getPostagem() {
-			return postagem;
-		}
-
-		public void setPostagem(List<PostagemModel> postagem) {
-			this.postagem = postagem;
-		}
+	public void setPostagem(List<PostagemModel> postagem) {
+		this.postagem = postagem;
+	}
 		
 }
 	
